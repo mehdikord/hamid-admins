@@ -295,9 +295,9 @@ export default {
         <template v-slot:body-cell-customers="props">
           <q-td :props="props" >
             <div class="text-center">
-              <q-chip label="200" color="green-6" size="sm" text-color="white" class="font-12 font-weight-700" title="تخصیص به کارشناس"></q-chip>
-              <q-chip label="500" color="blue-grey-8" size="sm" text-color="white" class="font-12 font-weight-700" title="کل مشتریان"></q-chip>
-              <q-chip label="300" color="red-6" size="sm" text-color="white" class="font-12 font-weight-700" title="بدون کارشناس"></q-chip>
+              <q-chip :label="props.row.pending_customers" color="green-6" size="sm" text-color="white" class="font-12 font-weight-700" title="تخصیص به کارشناس"></q-chip>
+              <q-chip :label="props.row.total_customers" color="blue-grey-8" size="sm" text-color="white" class="font-12 font-weight-700" title="کل مشتریان"></q-chip>
+              <q-chip :label="props.row.total_customers - props.row.pending_customers" color="red-6" size="sm" text-color="white" class="font-12 font-weight-700" title="بدون کارشناس"></q-chip>
             </div>
 
 

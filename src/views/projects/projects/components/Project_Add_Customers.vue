@@ -17,6 +17,7 @@ export default {
         numbers:null,
         description:null,
       },
+      exists_numbers:[],
       loading: false,
       errors:[],
     }
@@ -29,8 +30,10 @@ export default {
 
       this.loading = true;
       Stores_Projects().Add_Customers(this.items).then((res)=>{
-
-        console.log(res.data.result);
+        if (res.data.result){
+          this.exists_numbers=res.data.result
+        }
+        this.Methods_Notify_Message_Success("شماره های مورد نظر باموفقیت به پروژه افزوده شدند")
         this.loading = false;
 
       }).catch(error=>{
@@ -47,6 +50,19 @@ export default {
 
 <template>
   <div class="q-mb-sm">
+    <template v-if="exists_numbers.length">
+      <q-banner class="bg-blue-grey-8 rounded-borders q-mb-md text-white">
+        <strong> تعداد {{exists_numbers.length}} مشتری (شماره) در این پروژه درحال حاظر موجود است !</strong>
+        <div class="q-mt-sm">
+          <strong>لیست شماره های تکراری : </strong>
+          <div class="q-mt-sm q-gutter-sm q-mb-md">
+            <q-chip v-for="item in exists_numbers" color="grey-2" :label="item"></q-chip>
+          </div>
+        </div>
+      </q-banner>
+
+
+    </template>
     <strong class="text-grey-9">افزودن از طریق فایل اکسل : </strong>
     <div class="q-mt-lg">
       <q-file outlined bottom-slots v-model="items.excel" label="انتخاب فایل " counter>
