@@ -155,7 +155,7 @@ export default {
 
 <template>
   <div>
-    <q-btn :disable="!pending_customers" glossy  push color="indigo" rounded class="float-right" label="تخصیص به کارشناسان" icon="fas fa-user-plus"> </q-btn>
+    <q-btn :disable="!project.pending_customers" glossy  push color="indigo" rounded class="float-right" label="تخصیص به کارشناسان" icon="fas fa-user-plus"> </q-btn>
     <strong class="text-teal-10 font-16">لیست مشتریان پروژه : </strong>
     <q-chip :label="project.pending_customers" color="green-6" size="sm" text-color="white" class="font-14 font-weight-700" title="تخصیص به کارشناس"></q-chip>
     <q-chip :label="project.total_customers" color="blue-grey-8" size="sm" text-color="white" class="font-14 font-weight-700" title="کل مشتریان"></q-chip>
