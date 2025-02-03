@@ -42,15 +42,13 @@ import Global_Searching_Full_Search from "@/components/globals/searching/Global_
 import Global_Searching_Sorting from "@/components/globals/searching/Global_Searching_Sorting.vue";
 import Global_Images_Animation_No_Data from "@/components/globals/images/Global_Images_Animation_No_Data.vue";
 import Global_Chips_Bool_Status from "@/components/globals/chips/Global_Chips_Bool_Status.vue";
-import Global_Items_Form_Type_Icon from "@/components/globals/items/Global_Items_Form_Type_Icon.vue";
 import Global_Filter_File_Type from "@/components/globals/filters/Global_Filter_File_Type.vue";
-import Global_Item_File_View_By_Type from "@/components/globals/items/Global_Item_File_View_By_Type.vue";
 import Global_Images_Animation_Info from "@/components/globals/images/Global_Images_Animation_Info.vue";
-import Global_Items_Lead from "@/components/globals/items/Global_Items_Lead.vue";
 import Global_Actions_Multi_Actions from "@/components/globals/actions/Global_Actions_Multi_Actions.vue";
 import Global_Actions_Header_Buttons from "@/components/globals/actions/Global_Actions_Header_Buttons.vue";
 import {Stores_Auth} from "@/stores/auth/auth.js";
 import before_created from "@/includes/before_created.js";
+import Global_Chips_Customer_Status from "@/components/globals/chips/Global_Chips_Customer_Status.vue";
 
 
 
@@ -75,12 +73,11 @@ app.component('global_actions_header_buttons',Global_Actions_Header_Buttons)
 app.component('global_filter_date',Global_Filter_Date)
 app.component('global_filter_file_type',Global_Filter_File_Type)
 app.component('global_items_user',Global_Items_User)
-app.component('global_items_lead',Global_Items_Lead)
 app.component("global_searching_full_search",Global_Searching_Full_Search)
 app.component("global_searching_sorting",Global_Searching_Sorting)
 app.component("global_chips_bool_status",Global_Chips_Bool_Status)
-app.component("global_form_type_icon",Global_Items_Form_Type_Icon)
-app.component("global_items_file_view_by_type",Global_Item_File_View_By_Type)
+app.component("global_chips_customer_status",Global_Chips_Customer_Status)
+
 
 
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

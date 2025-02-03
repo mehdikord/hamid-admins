@@ -51,6 +51,17 @@ export default {
             </q-btn>
           </div>
 
+          <div class="col-md-2 col-sm-3 col-xs-4">
+            <q-btn :to="{name : 'projects'}" color="deep-orange-6" flat icon="fas fa-star" round size="17px">
+              <q-tooltip
+                  transition-show="rotate"
+                  transition-hide="rotate"
+              >
+                <strong>پروژه ها</strong>
+              </q-tooltip>
+            </q-btn>
+          </div>
+
 
         </div>
 

@@ -233,9 +233,7 @@ export default {
         </template>
         <template v-slot:body-cell-color="props">
           <q-td :props="props">
-            <div class="color-box" :style="'background-color:'+props.row.color">
-
-            </div>
+            <div class="color-box" :style="'background-color:'+props.row.color"></div>
           </q-td>
         </template>
         <template v-slot:body-cell-tools="props">

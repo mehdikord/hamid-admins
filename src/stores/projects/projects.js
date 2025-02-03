@@ -72,6 +72,16 @@ export const Stores_Projects = defineStore('project',{
             })
         },
 
+        Get_Customers(params){
+            return new Promise((resolve, reject) => {
+                axios.get('admins/projects/'+params.id+'/customers',{params : params}).then(response =>{
+                    return resolve(response);
+                }).catch(error =>{
+                    return reject(error);
+                })
+            })
+        }
+
 
     },
     getters :{

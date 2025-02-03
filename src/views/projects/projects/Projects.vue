@@ -60,6 +60,14 @@ export default {
           field: row => row.name,
         },
         {
+          name: 'code',
+          value: 'code',
+          label: 'کد',
+          align: 'left',
+          sortable: true,
+          field: row => row.code,
+        },
+        {
           name: 'category',
           value: 'category',
           label: 'دسته بندی',
@@ -135,7 +143,6 @@ export default {
       }
 
       Stores_Projects().Index(this.query_params).then(res=>{
-        console.log(res.data);
         this.items = res.data.result.data;
         this.pagination.page = res.data.result.current_page;
         this.pagination.rowsPerPage = res.data.result.per_page;
@@ -278,6 +285,11 @@ export default {
               <div><strong>{{ props.row.name }}</strong></div>
           </q-td>
         </template>
+        <template v-slot:body-cell-code="props">
+          <q-td :props="props">
+            <strong class="text-indigo-8">{{ props.row.code }}</strong>
+          </q-td>
+        </template>
         <template v-slot:body-cell-category="props">
           <q-td :props="props">
             <template v-if="props.row.category">
@@ -309,7 +321,7 @@ export default {
           <q-td :props="props">
             <div class="text-center">
               <q-btn @click="dialog_edit[props.row.id] = true" glossy title="ویرایش آیتم" class="q-ma-xs" color="blue-8" icon="fas fa-edit" size="9px" round  />
-              <q-btn  glossy title="مدیریت پروژه" class="q-ma-xs" color="teal-8" icon="fas fa-cog" size="9px" round  />
+              <q-btn :to="{name : 'projects_single',params : {id : props.row.id}}"  glossy title="مدیریت پروژه" class="q-ma-xs" color="teal-8" icon="fas fa-cog" size="9px" round  />
               <q-btn  @click="dialog_customers[props.row.id] = true" glossy title="افزودن مشتری" class="q-ma-xs" color="purple-8" icon="fas fa-users" size="9px" round  />
               <global_actions_delete_item @Set_Ok="Item_Delete(props.row.id)" :loading="delete_loading"></global_actions_delete_item>
             </div>
