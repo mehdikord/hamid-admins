@@ -12,6 +12,15 @@ export const Stores_Users = defineStore('users',{
                })
            })
        },
+        All(){
+            return new Promise((resolve, reject) => {
+                axios.get('admins/users/all',).then(response =>{
+                    return resolve(response);
+                }).catch(error =>{
+                    return reject(error);
+                })
+            })
+        },
         Create(params){
             return new Promise((resolve, reject) => {
                 axios.post('admins/users',params).then(response =>{

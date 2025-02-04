@@ -159,8 +159,24 @@ export default {
 
         Methods_Date_Gregorian_To_Jalali(date){
             return moment(date, 'YYYY-M-D').format('jYYYY-jMM-jDD')
-        }
+        },
+        Methods_Divide_Equally(number,people){
+            const base_amount = Math.floor(number / people);
 
+            const remainder = number % people;
+
+            const result = [];
+
+            for (let i = 0; i < people; i++) {
+                result.push(base_amount);
+            }
+
+            for (let i = 0; i < remainder; i++) {
+                result[i]++;
+            }
+
+            return result;
+        }
 
 
 

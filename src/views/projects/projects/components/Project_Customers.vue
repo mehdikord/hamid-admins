@@ -1,16 +1,16 @@
 <script>
 import {Stores_Projects} from "@/stores/projects/projects.js";
-import projects_edit from "@/views/projects/projects/Projects_Edit.vue";
-import add_customers from "@/views/projects/projects/components/Project_Add_Customers.vue";
-
+import Project_Customers_Assigned from "@/views/projects/projects/components/Project_Customers_Assigned.vue";
 export default {
   name: "Project_Customers",
-  components: {add_customers, projects_edit},
+  components: {
+    'customers_assigned' : Project_Customers_Assigned,
+  },
   props:['project'],
   mounted() {
     if (this.project) {
       this.query_params.id = this.project.id;
-      console.log(this.project);
+      console.log(this.Methods_Divide_Equally(256,3));
       this.Get_Customers();
     }
   },
@@ -18,6 +18,7 @@ export default {
     return {
       loading: true,
       customers: [],
+      dialog_assigned:false,
       query_params:{
         id:null,
         sort_by : 'id',
@@ -155,7 +156,27 @@ export default {
 
 <template>
   <div>
-    <q-btn :disable="!project.pending_customers" glossy  push color="indigo" rounded class="float-right" label="تخصیص به کارشناسان" icon="fas fa-user-plus"> </q-btn>
+    <q-btn @click="dialog_assigned=true" :disable="!project.pending_customers" glossy  push color="indigo" rounded class="float-right" label="تخصیص به کارشناسان" icon="fas fa-user-plus"> </q-btn>
+
+    <q-dialog
+        v-model="dialog_assigned"
+        position="top"
+    >
+      <q-card style="width: 1024px; max-width: 85vw;">
+
+        <q-card-section>
+          <strong class="text-blue-8 font-15">تخصیص مشتریان به کارشناسان</strong>
+          <q-btn size="sm" icon="fas fa-times" glossy round dense v-close-popup color="red" class="q-mr-sm float-right"/>
+        </q-card-section>
+        <q-card-section>
+          <customers_assigned :project="project"></customers_assigned>
+        </q-card-section>
+      </q-card>
+    </q-dialog>
+
+
+
+
     <strong class="text-teal-10 font-16">لیست مشتریان پروژه : </strong>
     <q-chip :label="project.pending_customers" color="green-6" size="sm" text-color="white" class="font-14 font-weight-700" title="تخصیص به کارشناس"></q-chip>
     <q-chip :label="project.total_customers" color="blue-grey-8" size="sm" text-color="white" class="font-14 font-weight-700" title="کل مشتریان"></q-chip>
