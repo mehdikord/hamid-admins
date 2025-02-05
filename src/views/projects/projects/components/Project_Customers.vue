@@ -19,6 +19,7 @@ export default {
       loading: true,
       customers: [],
       dialog_assigned:false,
+      dialog_user:[],
       query_params:{
         id:null,
         sort_by : 'id',
@@ -60,6 +61,14 @@ export default {
           align: 'left',
           sortable: false,
           field: row => row.phone,
+        },
+        {
+          name: 'user',
+          value: 'user',
+          label: 'کارشناس',
+          align: 'left',
+          sortable: false,
+          field: row => row.user,
         },
         {
           name: 'instagram',
@@ -129,6 +138,11 @@ export default {
         this.loading=false;
       })
     },
+    Assigned_Done(){
+      this.Get_Customers();
+      this.dialog_assigned=false;
+      this.$emit('Assigned')
+    },
     updateSelected(newSelection) {
       this.selected = newSelection;
       this.items_selected = newSelection.map(item => item.id);
@@ -161,6 +175,7 @@ export default {
     <q-dialog
         v-model="dialog_assigned"
         position="top"
+        persistent
     >
       <q-card style="width: 1024px; max-width: 85vw;">
 
@@ -169,7 +184,7 @@ export default {
           <q-btn size="sm" icon="fas fa-times" glossy round dense v-close-popup color="red" class="q-mr-sm float-right"/>
         </q-card-section>
         <q-card-section>
-          <customers_assigned :project="project"></customers_assigned>
+          <customers_assigned @Assigned="Assigned_Done" :project="project"></customers_assigned>
         </q-card-section>
       </q-card>
     </q-dialog>
@@ -183,6 +198,10 @@ export default {
     <q-chip :label="project.total_customers - project.pending_customers" color="red-6" size="sm" text-color="white" class="font-14 font-weight-700" title="بدون کارشناس"></q-chip>
   </div>
   <div class="q-mt-lg">
+    <q-banner class="rounded-borders bg-cyan-9 text-white q-mb-lg">
+      برای مشاهده جژئیات کامل کارشناس و مشتری از دکمه <q-btn  glossy title="جزئیات کامل" class="q-ma-xs" color="blue-grey-7" icon="fas fa-list" size="9px" round  />
+      استفاده کنید
+    </q-banner>
     <q-table
         flat
         bordered
@@ -215,6 +234,14 @@ export default {
           </div>
         </q-td>
       </template>
+      <template v-slot:body-cell-user="props">
+        <q-td :props="props">
+          <template v-if="props.row.user">
+            <global_items_user :user="props.row.user.user"></global_items_user>
+          </template>
+          <span v-else> --- </span>
+        </q-td>
+      </template>
       <template v-slot:body-cell-instagram="props">
         <q-td :props="props">
           <div v-if="props.row.customer">
@@ -244,9 +271,86 @@ export default {
       </template>
       <template v-slot:body-cell-tools="props">
         <q-td :props="props">
-          <q-btn  glossy title="جزئیات کامل" class="q-ma-xs" color="blue-grey-7" icon="fas fa-list" size="9px" round  />
-
+          <q-btn @click="dialog_user[props.row.id] = true" glossy title="جزئیات کامل" class="q-ma-xs" color="blue-grey-7" icon="fas fa-list" size="9px" round  />
           <global_actions_delete_item @Set_Ok="" :loading="delete_loading"></global_actions_delete_item>
+          <q-dialog
+              v-model="dialog_user[props.row.id]"
+              position="top"
+
+          >
+            <q-card style="width: 1024px; max-width: 85vw;">
+
+              <q-card-section>
+                <strong class="font-15">جزئیات کامل #<strong class="text-red-5">{{props.row.id}}</strong></strong>
+                <q-btn size="sm" icon="fas fa-times" glossy round dense v-close-popup color="red" class="q-mr-sm float-right"/>
+              </q-card-section>
+              <q-card-section class="q-mt-sm q-mb-md">
+                <template  v-if="props.row.user">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <q-icon name="fas fa-user" color="deep-purple" size="25px"></q-icon>
+                      <span class="q-ml-sm">کارشناس : </span>
+                    </div>
+                    <div class="col-md-6">
+                      <strong>
+                        {{props.row.user.user.name}}
+                      </strong>
+                    </div>
+                  </div>
+                  <q-separator class="q-mt-md q-mb-md" />
+                  <div class="row q-mt-sm">
+                    <div class="col-md-6">
+                      <q-icon name="fas fa-dollar" color="deep-purple" size="25px"></q-icon>
+                      <span class="q-ml-sm">مبلغ هدف : </span>
+                    </div>
+                    <div class="col-md-6">
+                      <strong>
+                        {{props.row.user.user.target_price ?? '---'}}
+                      </strong>
+                    </div>
+                  </div>
+                  <q-separator class="q-mt-md q-mb-md" />
+                  <div class="row q-mt-sm">
+                    <div class="col-md-6">
+                      <q-icon name="fas fa-calendar" color="green-7" size="25px"></q-icon>
+                      <span class="q-ml-sm">تاریخ شروع : </span>
+                    </div>
+                    <div class="col-md-6">
+                      <strong v-if="props.row.user.start_at">
+                        {{this.$filters.date_jalali(props.row.user.start_at)}}
+                      </strong>
+                      <span v-else> --- </span>
+                    </div>
+                  </div>
+                  <q-separator class="q-mt-md q-mb-md" />
+                  <div class="row q-mt-sm">
+                    <div class="col-md-6">
+                      <q-icon name="fas fa-calendar" color="red-7" size="25px"></q-icon>
+                      <span class="q-ml-sm">تاریخ اتمام : </span>
+                    </div>
+                    <div class="col-md-6">
+                      <strong v-if="props.row.user.end_at">
+                        {{this.$filters.date_jalali(props.row.user.end_at)}}
+                      </strong>
+                      <span v-else> --- </span>
+                    </div>
+                  </div>
+                  <q-separator class="q-mt-md q-mb-md" />
+                  <div class="row q-mt-sm">
+                    <div class="col-md-6">
+                      <q-icon name="fas fa-file-text" color="deep-purple" size="25px"></q-icon>
+                      <span class="q-ml-sm">توضیحات : </span>
+                    </div>
+                    <div class="col-md-6">
+                      <p>{{props.row.description}}</p>
+                    </div>
+                  </div>
+                </template>
+
+              </q-card-section>
+            </q-card>
+          </q-dialog>
+
 
         </q-td>
       </template>

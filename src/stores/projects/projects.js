@@ -80,6 +80,15 @@ export const Stores_Projects = defineStore('project',{
                     return reject(error);
                 })
             })
+        },
+        Assigned_Customers(params){
+            return new Promise((resolve, reject) => {
+                axios.post('admins/projects/'+params.id+'/customers/assigned',params).then(response =>{
+                    return resolve(response);
+                }).catch(error =>{
+                    return reject(error);
+                })
+            })
         }
 
 

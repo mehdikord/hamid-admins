@@ -142,7 +142,7 @@ export default {
         </div>
       </q-card-section>
       <q-card-section class="q-mb-md">
-        <project_customers :project="project"></project_customers>
+        <project_customers @Assigned="Get_Item" :project="project" ></project_customers>
       </q-card-section>
     </template>
 

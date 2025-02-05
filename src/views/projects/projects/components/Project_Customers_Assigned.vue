@@ -1,5 +1,6 @@
 <script>
 import {Stores_Users} from "@/stores/users/users.js";
+import {Stores_Projects} from "@/stores/projects/projects.js";
 
 export default {
   name: "Project_Customers_Assigned",
@@ -22,7 +23,31 @@ export default {
     },
   methods:{
     Assigned_Customers(){
+      this.loading = true;
       console.log(this.divided_users);
+      let divides = [];
+      this.divided_users.forEach((item,index) => {
+        if (item !== null){
+          divides.push({
+            user_id:index,
+            amount : item
+          })
+        }
+      })
+      let params = {
+        divides : divides,
+        description : this.description,
+        id : this.project.id
+      }
+      Stores_Projects().Assigned_Customers(params).then((res)=>{
+        this.Methods_Notify_Message_Success("مشتریان با موفقیت به کارشناسان تخصیص داده شدند")
+        this.$emit('Assigned')
+      }).catch(error=>{
+        if (error.response.status === 409) {
+          this.Methods_Notify_Message_Error(error.response.data.message);
+        }
+        this.loading=false;
+      })
     },
     Get_Users(){
       Stores_Users().All().then(res=>{
@@ -40,7 +65,7 @@ export default {
 
       }).catch(err=>{
         this.Methods_Notify_Error_Server();
-        this.loading=false;
+
       })
 
     },
@@ -56,7 +81,7 @@ export default {
         return item.value !== this.user_id
       })
       this.user_id=null;
-      let divided = this.Methods_Divide_Equally(4,this.selected_users.length);
+      let divided = this.Methods_Divide_Equally(this.project.pending_customers,this.selected_users.length);
       this.selected_users.forEach((item,index) => {
         this.divided_users[item] = divided[index];
       })
@@ -78,7 +103,7 @@ export default {
 </script>
 
 <template>
-  <q-banner class="q-mb-md bg-blue-5 rounded-borders text-dark">
+  <q-banner class="q-mb-md bg-blue-9 rounded-borders text-white">
     برای تخصیص مشتریان به کارشناسان ابتدا کارشناس مورد نظر را با دکمه انتخاب کارشناس ، انتخاب کرده سپس در لیست تعداد مشتریان دریافتی برای هر کارشناس مشاهده میشود و قایل ویراش است .
   </q-banner>
   <q-select
