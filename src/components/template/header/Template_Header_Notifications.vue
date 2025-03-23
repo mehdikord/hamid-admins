@@ -4,7 +4,7 @@ export default {
   name: "Template_Header_Notifications",
   data(){
     return {
-      user : null
+      user : 'test'
     }
   },
   methods:{
@@ -18,8 +18,8 @@ export default {
 </script>
 
 <template>
-  <q-btn v-if="user" title="اعلانات" round icon="fas fa-bell" size="14px" :loading="!user">
-    <q-badge color="red" floating>4</q-badge>
+  <q-btn v-if="user" title="اعلانات" round icon="fa-duotone fa-bell " size="14px text" :loading="!user">
+    <q-badge color="red" floating class="fa-bounce">4</q-badge>
     <q-menu
         transition-show="flip-right"
         transition-hide="flip-left"

@@ -14,11 +14,11 @@ export default {
   <template v-else>
     <template v-if="item.route_name">
       <q-expansion-item
-          class="menu"
+          class="menu-sub"
           :class="{'menu-active' : this.$route.name === item.route_name}"
-          :icon="item.icon"
           :label="item.fa"
           dense-toggle
+          icon="fa-duotone fa-circle-dot font-11 text-light"
           expand-separator
           hide-expand-icon
           :to="{name : item.route_name}"
@@ -28,14 +28,16 @@ export default {
     </template>
     <template v-else>
       <q-expansion-item
-          class="menu "
-          :icon="item.icon"
+          class="menu q-mb-sm"
+          :class="{'menu-active' : this.$route.name === item.route_name}"
+          :icon="item.icon+' font-22'"
           :label="item.fa"
           dense-toggle
           expand-separator
           :header-inset-level="item.level"
       >
         <template v-if="item.subs">
+
           <global_menu_item v-for="sub in item.subs" :item="sub"></global_menu_item>
 
         </template>
@@ -48,21 +50,24 @@ export default {
 
 <style scoped>
 .menu{
-  color: #666666 !important;
-  font-size: 13px;
-  font-weight: 550;
+  color: #9a9cae !important;
+  font-size: 15px;
+  font-weight: 600;
 }
 .menu:hover{
   color: #ffffff !important;
 }
 .menu-active{
   color: #FFFFFF !important;
-
 }
 .menu-title{
   font-size: 12px;
 }
-
+.menu-sub{
+  color: #9a9cae !important;
+  font-size: 13px;
+  font-weight: 600;
+}
 
 
 </style>

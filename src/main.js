@@ -12,9 +12,10 @@ import '@/includes/axios.js';
 import quasarIconSet from 'quasar/icon-set/mdi-v7'
 // Import icon libraries
 import '@quasar/extras/mdi-v7/mdi-v7.css'
-import '@quasar/extras/fontawesome-v6/fontawesome-v6.css'
-import '@quasar/extras/material-icons/material-icons.css'
+// import '@quasar/extras/fontawesome-v6/fontawesome-v6.css'
+// import '@quasar/extras/material-icons/material-icons.css'
 // Import Quasar css
+
 import 'quasar/dist/quasar.css'
 import '/src/assets/css/app.css'
 import '/src/assets/css/fonts.css'
@@ -96,17 +97,18 @@ app.use(Quasar, {
     }, // import Quasar plugins and add here
     lang: quasarLang,
     iconSet: quasarIconSet,
-
     config: {
         brand: {
-            // primary: '#e46262',
-            // ... or all other brand colors
+            dark: '#111217',
+            'dark-page': '#121212',
         },
         notify: {
 
         },
+        dark:true
 
-    }
+    },
+
 
 })
 app.mixin(before_created);

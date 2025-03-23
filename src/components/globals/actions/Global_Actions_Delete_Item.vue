@@ -15,11 +15,11 @@ export default {
         title: 'آیا اطمینان دارید',
         message: 'آیتم مورد نظر حذف شود ؟',
         ok: {
-          glossy: true,
+          rounded: true,
           color : "green-7"
         },
         cancel: {
-          glossy: true,
+          rounded: true,
           color: 'negative'
         },
         persistent: true
@@ -38,7 +38,7 @@ export default {
 </script>
 
 <template>
-  <q-btn :loading="loading" title="حذف این آیتم" glossy class="q-ma-xs" color="red-8" icon="fas fa-trash" size="9px" round @click="Delete_Item"  />
+  <q-btn :loading="loading" title="حذف این آیتم" class="q-ma-xs" color="red-8" icon="fa-duotone fa-regular fa-trash" size="9px" round @click="Delete_Item"  />
 </template>
 
 <style scoped>

@@ -15,11 +15,9 @@ export default {
         title: 'آیا اطمینان دارید',
         message: 'وضعیت آیتم مورد نظر تغییر کند ؟',
         ok: {
-          glossy: true,
           color : "green-7"
         },
         cancel: {
-          glossy: true,
           color: 'negative'
         },
         persistent: true
@@ -39,8 +37,8 @@ export default {
 
 <template>
 
-  <q-btn v-if="status" title="فعال"  glossy class="q-ma-xs" color="green-8" icon="fas fa-check" size="9px" round @click="Change_Activation_Item"  />
-  <q-btn v-else title="غیرفعال"  glossy class="q-ma-xs" color="red-8" icon="fas fa-times" size="9px" round @click="Change_Activation_Item"  />
+  <q-btn v-if="status" title="فعال"  class="q-ma-xs" color="green-7" icon="fa-duotone fa-check" size="9px" round @click="Change_Activation_Item"  />
+  <q-btn v-else title="غیرفعال"  class="q-ma-xs" color="red-7" icon="fa-duotone fa-times fa-light" size="9px" round @click="Change_Activation_Item"  />
 
 </template>
 

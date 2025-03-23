@@ -80,8 +80,8 @@ export default {
       </q-input>
     </div>
     <div class="col-12 q-mt-sm q-pa-xs text-right">
-      <q-btn color="grey-8" glossy icon="fas fa-times" label="بستن" class="q-mr-sm" v-close-popup></q-btn>
-      <q-btn @click="Edit_Item" :loading="edit_loading" color="indigo-7" glossy icon="fas fa-edit" label="ویرایش آیتم"></q-btn>
+      <q-btn rounded color="blue-grey-8"  icon="fa-duotone fa-times" label="بستن" class="q-mr-sm" v-close-popup></q-btn>
+      <q-btn rounded @click="Edit_Item" :loading="edit_loading" color="blue-7" icon="fa-duotone fa-edit" label="ویرایش آیتم"></q-btn>
     </div>
   </div>
 

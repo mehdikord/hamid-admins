@@ -153,7 +153,7 @@ export default {
         this.delete_loading=false;
       }).catch(error => {
         if (error.response.status === 409) {
-          this.Methods_Notify_Generator( error.response.data.error,'red-8','fas fa-times')
+          this.Methods_Notify_Generator( error.response.data.error,'red-8','fa-duotone fa-times')
         }else {
           this.Methods_Notify_Error_Server();
         }
@@ -173,7 +173,7 @@ export default {
         this.activation_loading=false;
       }).catch(error =>{
         if (error.response.status === 409) {
-          this.Methods_Notify_Generator( error.response.data.error,'red-8','fas fa-times')
+          this.Methods_Notify_Generator( error.response.data.error,'red-8','fa-duotone fa-times')
         }
         this.activation_loading=false;
       })
@@ -213,7 +213,7 @@ export default {
 </script>
 
 <template>
-  <q-card>
+  <q-card flat>
     <q-card-section>
       <global_actions_header_buttons @Create="dialog_create=true" :create="true"></global_actions_header_buttons>
 
@@ -221,11 +221,11 @@ export default {
           v-model="dialog_create"
           position="top"
       >
-        <q-card style="width: 1024px; max-width: 85vw;">
+        <q-card style="width: 1024px; max-width: 85vw; margin-top: 50px" >
 
-          <q-card-section>
-            <strong class="text-indigo-8 font-15">افزودن آیتم جدید</strong>
-            <q-btn size="sm" icon="fas fa-times" glossy round dense v-close-popup color="red" class="q-mr-sm float-right"/>
+          <q-card-section class="bg-indigo-7">
+            <strong class="font-16">افزودن آیتم جدید</strong>
+            <q-btn size="sm" color="white" text-color="dark" icon="fa-duotone fa-times" round dense v-close-popup class="q-mr-sm float-right"/>
           </q-card-section>
           <q-card-section>
             <users_create @Done="(item => { Item_Create(item) })"></users_create>
@@ -242,8 +242,7 @@ export default {
           :loading="items_loading"
           :rows="items"
           title="لیست آیتم ها"
-          title-class="text-teal-8 font-18 font-weight-500"
-          table-header-class="text-red-8"
+          title-class="font-15 font-weight-500"
           :columns="columns"
           separator="cell"
           selection="multiple"
@@ -270,19 +269,19 @@ export default {
         <template v-slot:body-cell-tools="props">
           <q-td :props="props">
             <div class="text-center">
-              <q-btn @click="dialog_edit[props.row.id] = true" glossy title="ویرایش آیتم" class="q-ma-xs" color="blue-8" icon="fas fa-edit" size="9px" round  />
-              <q-btn @click="dialog_password[props.row.id] = true" glossy title="ویرایش گذرواژه" class="q-ma-xs" color="teal-6" icon="fas fa-lock" size="9px" round  />
+              <q-btn @click="dialog_edit[props.row.id] = true"  title="ویرایش آیتم" class="q-ma-xs" color="blue-8" icon="fa-duotone fa-regular fa-edit" size="9px" round  />
+              <q-btn @click="dialog_password[props.row.id] = true"  title="ویرایش گذرواژه" class="q-ma-xs" color="teal-7" icon="fa-duotone fa-regular fa-lock" size="9px" round  />
               <global_actions_delete_item @Set_Ok="Item_Delete(props.row.id)" :loading="delete_loading"></global_actions_delete_item>
             </div>
             <q-dialog
                 v-model="dialog_edit[props.row.id]"
                 position="top"
             >
-              <q-card style="width: 1024px; max-width: 85vw;">
+              <q-card style="width: 1024px; max-width: 85vw; margin-top: 50px">
 
-                <q-card-section>
-                  <strong class="text-blue-8 font-15">ویرایش اطلاعات : <strong class="text-red-8">{{props.row.name}}</strong></strong>
-                  <q-btn size="sm" icon="fas fa-times" glossy round dense v-close-popup color="red" class="q-mr-sm float-right"/>
+                <q-card-section class="bg-blue-7">
+                  <strong class="font-15">ویرایش اطلاعات : <strong>{{props.row.name}}</strong></strong>
+                  <q-btn size="sm" text-color="dark" color="white" icon="fa-duotone fa-times" round dense v-close-popup  class="q-mr-sm float-right"/>
                 </q-card-section>
                 <q-card-section>
                   <users_edit :id="props.row.id" @Done="(item => { Item_Edit(item) })"></users_edit>
@@ -293,11 +292,11 @@ export default {
                 v-model="dialog_password[props.row.id]"
                 position="top"
             >
-              <q-card style="width: 1024px; max-width: 85vw;">
+              <q-card style="width: 1024px; max-width: 85vw; margin-top: 50px">
 
-                <q-card-section>
-                  <strong class="text-blue-8 font-15">ویرایش گذرواژه : <strong class="text-red-8">{{props.row.name}}</strong></strong>
-                  <q-btn size="sm" icon="fas fa-times" glossy round dense v-close-popup color="red" class="q-mr-sm float-right"/>
+                <q-card-section class="bg-teal-7">
+                  <strong class="font-15">ویرایش گذرواژه : <strong>{{props.row.name}}</strong></strong>
+                  <q-btn size="sm" text-color="dark" icon="fa-duotone fa-times" round dense v-close-popup color="white" class="q-mr-sm float-right"/>
                 </q-card-section>
                 <q-card-section>
                   <users_edit_password :id="props.row.id" @Done_Password="Item_Change_Password(props.row.id)"></users_edit_password>

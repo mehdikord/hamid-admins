@@ -39,7 +39,7 @@ export default {
 <template>
   <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12 q-pa-xs">
-      <q-input :error="this.Methods_Validation_Check(errors,'name')" outlined v-model="items.name"  type="text" label="نام کابر">
+      <q-input class="rounded-borders" :error="this.Methods_Validation_Check(errors,'name')" outlined v-model="items.name"  type="text" label="نام کابر">
         <template v-slot:error>
           <global_validations_errors :errors="this.Methods_Validation_Errors(errors,'name')" />
         </template>
@@ -81,8 +81,8 @@ export default {
       </q-input>
     </div>
     <div class="col-12 q-mt-sm q-pa-xs text-right">
-      <q-btn color="grey-8" glossy icon="fas fa-times" label="بستن" class="q-mr-sm" v-close-popup></q-btn>
-      <q-btn @click="Create_Item" :loading="loading" color="indigo-7" glossy icon="fas fa-plus-circle" label="افزودن آیتم جدید"></q-btn>
+      <q-btn rounded  color="blue-grey-8" icon="fa-duotone fa-times" label="بستن" class="q-mr-sm" v-close-popup></q-btn>
+      <q-btn rounded @click="Create_Item" :loading="loading" color="indigo-7" icon="fa-duotone fa-plus-circle" label="افزودن آیتم جدید"></q-btn>
     </div>
   </div>
 

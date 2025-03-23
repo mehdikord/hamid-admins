@@ -178,7 +178,7 @@ export default {
         this.delete_loading=false;
       }).catch(error => {
         if (error.response.status === 409) {
-          this.Methods_Notify_Generator( error.response.data.error,'red-8','fas fa-times')
+          this.Methods_Notify_Generator( error.response.data.error,'red-8','fa-duotone fa-times')
         }else {
           this.Methods_Notify_Error_Server();
         }
@@ -198,7 +198,7 @@ export default {
         this.activation_loading=false;
       }).catch(error =>{
         if (error.response.status === 409) {
-          this.Methods_Notify_Generator( error.response.data.error,'red-8','fas fa-times')
+          this.Methods_Notify_Generator( error.response.data.error,'red-8','fa-duotone fa-times')
         }
         this.activation_loading=false;
       })
@@ -233,7 +233,7 @@ export default {
 
 <template>
 
-  <q-card>
+  <q-card flat>
     <q-card-section>
       <global_actions_header_buttons @Create="dialog_create=true" :create="true"></global_actions_header_buttons>
 
@@ -245,7 +245,7 @@ export default {
 
           <q-card-section>
             <strong class="text-indigo-8 font-15">افزودن آیتم جدید</strong>
-            <q-btn size="sm" icon="fas fa-times" glossy round dense v-close-popup color="red" class="q-mr-sm float-right"/>
+            <q-btn size="sm" icon="fa-duotone fa-times" glossy round dense v-close-popup color="red" class="q-mr-sm float-right"/>
           </q-card-section>
           <q-card-section>
             <projects_create @Done="(item => { Item_Create(item) })"></projects_create>
@@ -257,9 +257,9 @@ export default {
     </q-card-section>
     <q-card-section>
       <q-banner class="bg-blue-grey-8 rounded-borders text-white">
-        برای مدیرت کامل پروژه و مشتریان و گزارشات ثبت شده ، به صفحه مدیریت پروژه بروید (               <q-btn  glossy class="q-ma-xs" color="teal-8" icon="fas fa-cog" size="9px" round  />
+        برای مدیرت کامل پروژه و مشتریان و گزارشات ثبت شده ، به صفحه مدیریت پروژه بروید (               <q-btn  glossy class="q-ma-xs" color="teal-8" icon="fa-duotone fa-cog" size="9px" round  />
         )
-        و برای افزودن سریع مشتری به پروژه از کلید ( <q-btn  glossy class="q-ma-xs" color="purple-8" icon="fas fa-users" size="9px" round  /> ) استفاده کنید
+        و برای افزودن سریع مشتری به پروژه از کلید ( <q-btn  glossy class="q-ma-xs" color="purple-8" icon="fa-duotone fa-users" size="9px" round  /> ) استفاده کنید
       </q-banner>
     </q-card-section>
     <q-card-section>
@@ -269,8 +269,7 @@ export default {
           :loading="items_loading"
           :rows="items"
           title="لیست آیتم ها"
-          title-class="text-teal-8 font-18 font-weight-500"
-          table-header-class="text-red-8"
+          title-class="font-15 font-weight-500"
           :columns="columns"
           separator="cell"
           selection="multiple"
@@ -320,9 +319,9 @@ export default {
         <template v-slot:body-cell-tools="props">
           <q-td :props="props">
             <div class="text-center">
-              <q-btn @click="dialog_edit[props.row.id] = true" glossy title="ویرایش آیتم" class="q-ma-xs" color="blue-8" icon="fas fa-edit" size="9px" round  />
-              <q-btn :to="{name : 'projects_single',params : {id : props.row.id}}"  glossy title="مدیریت پروژه" class="q-ma-xs" color="teal-8" icon="fas fa-cog" size="9px" round  />
-              <q-btn  @click="dialog_customers[props.row.id] = true" glossy title="افزودن مشتری" class="q-ma-xs" color="purple-8" icon="fas fa-users" size="9px" round  />
+              <q-btn @click="dialog_edit[props.row.id] = true" glossy title="ویرایش آیتم" class="q-ma-xs" color="blue-8" icon="fa-duotone fa-edit" size="9px" round  />
+              <q-btn :to="{name : 'projects_single',params : {id : props.row.id}}"  glossy title="مدیریت پروژه" class="q-ma-xs" color="teal-8" icon="fa-duotone fa-cog" size="9px" round  />
+              <q-btn  @click="dialog_customers[props.row.id] = true" glossy title="افزودن مشتری" class="q-ma-xs" color="purple-8" icon="fa-duotone fa-users" size="9px" round  />
               <global_actions_delete_item @Set_Ok="Item_Delete(props.row.id)" :loading="delete_loading"></global_actions_delete_item>
             </div>
             <q-dialog
@@ -333,7 +332,7 @@ export default {
 
                 <q-card-section>
                   <strong class="text-blue-8 font-15">ویرایش اطلاعات : <strong class="text-red-8">{{props.row.name}}</strong></strong>
-                  <q-btn size="sm" icon="fas fa-times" glossy round dense v-close-popup color="red" class="q-mr-sm float-right"/>
+                  <q-btn size="sm" icon="fa-duotone fa-times" glossy round dense v-close-popup color="red" class="q-mr-sm float-right"/>
                 </q-card-section>
                 <q-card-section>
                   <projects_edit :id="props.row.id" @Done="(item => { Item_Edit(item) })"></projects_edit>
@@ -348,7 +347,7 @@ export default {
 
                 <q-card-section>
                   <strong class="text-blue-8 font-15">افزودن مشتری به : <strong class="text-red-8">{{props.row.name}}</strong></strong>
-                  <q-btn size="sm" icon="fas fa-times" glossy round dense v-close-popup color="red" class="q-mr-sm float-right"/>
+                  <q-btn size="sm" icon="fa-duotone fa-times" glossy round dense v-close-popup color="red" class="q-mr-sm float-right"/>
                 </q-card-section>
                 <q-card-section>
                   <add_customers :id="props.row.id" @Done="(item => { Item_Edit(item) })"></add_customers>

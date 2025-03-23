@@ -55,8 +55,8 @@ export default {
       </q-input>
     </div>
     <div class="col-12 q-mt-sm q-pa-xs text-right">
-      <q-btn color="grey-8" glossy icon="fas fa-times" label="بستن" class="q-mr-sm" v-close-popup></q-btn>
-      <q-btn @click="Edit_Item" :loading="edit_loading" color="teal-7" glossy icon="fas fa-lock" label="ویرایش گذرواژه"></q-btn>
+      <q-btn color="blue-grey-8" rounded icon="fa-duotone fa-times" label="بستن" class="q-mr-sm" v-close-popup></q-btn>
+      <q-btn @click="Edit_Item" :loading="edit_loading" color="teal-7" rounded icon="fa-duotone fa-lock" label="ویرایش گذرواژه"></q-btn>
     </div>
   </div>
 

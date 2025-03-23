@@ -4,21 +4,11 @@
     "fa" : "اطلاعات کلی و داشبورد",
     "en" : "Dashboards"
   },
-  {
-    "fa" : "داشبورد",
-    "en" : "Dashboard",
-    "icon" : "fas fa-dashboard",
-    "route_path" : "/",
-    "route_name" : "home",
-    "level"      : 0,
-    "subs" : [
 
-    ]
-  },
   {
     "fa" : "کابران",
     "en" : "Users",
-    "icon" : "fas fa-users",
+    "icon" : "fa-duotone fa-users",
     "route_path" : "/",
     "route_name" : "",
     "level"      : 0,
@@ -29,23 +19,23 @@
         "route_path" : "/",
         "route_name" : "managers",
         "feature" : "1001",
-        "icon" : "fas fa-user-tie font-20",
-        "level"      : 0.5
+        "icon" : "",
+        "level"      : 0.6
       },
       {
         "fa" : "کابران",
         "en" : "Users",
         "route_path" : "/users",
-        "icon" : "fas fa-user-group font-20",
+        "icon" : "",
         "route_name" : "users",
-        "level"      : 0.5
+        "level"      : 0.6
       }
     ]
   },
   {
     "fa" : "پروژه ها",
     "en" : "Projects",
-    "icon" : "fas fa-star",
+    "icon" : "fa-duotone fa-star",
     "route_path" : "/",
     "route_name" : "",
     "level"      : 0,
@@ -56,14 +46,14 @@
         "route_path" : "/projects",
         "route_name" : "projects",
         "feature" : "1001",
-        "icon" : "fas fa-box font-20",
+        "icon" : "fa-duotone fa-box font-20",
         "level"      : 0.5
       },
       {
         "fa" : "دسته بندی ها",
         "en" : "Categories",
         "route_path" : "/projects/categories",
-        "icon" : "fas fa-list font-20",
+        "icon" : "fa-duotone fa-list font-20",
         "route_name" : "project_categories",
         "level"      : 0.5
       },
@@ -71,7 +61,7 @@
         "fa" : "وضعیت ها",
         "en" : "Statuses",
         "route_path" : "/projects/statuses",
-        "icon" : "fas fa-check-circle font-20",
+        "icon" : "fa-duotone fa-check-circle font-20",
         "route_name" : "project_statuses",
         "level"      : 0.5
       }
