@@ -62,7 +62,7 @@ export default {
           :error="this.Methods_Validation_Check(errors,'color')" outlined v-model="items.color" label="رنگ دسته بندی"
       >
         <template v-slot:append>
-          <q-icon name="fas fa-eye-dropper" class="cursor-pointer">
+          <q-icon name="fa-duotone fa-palette fa-fade" color="teal-13" class="cursor-pointer" size="30px">
             <q-popup-proxy cover transition-show="scale" transition-hide="scale">
               <q-color v-model="items.color" />
             </q-popup-proxy>
@@ -81,8 +81,8 @@ export default {
       </q-input>
     </div>
     <div class="col-12 q-mt-sm q-pa-xs text-right">
-      <q-btn color="grey-8" glossy icon="fas fa-times" label="بستن" class="q-mr-sm" v-close-popup></q-btn>
-      <q-btn @click="Edit_Item" :loading="edit_loading" color="indigo-7" glossy icon="fas fa-edit" label="ویرایش آیتم"></q-btn>
+      <q-btn rounded color="blue-grey-8"  icon="fa-duotone fa-times" label="بستن" class="q-mr-sm" v-close-popup></q-btn>
+      <q-btn rounded @click="Edit_Item" :loading="edit_loading" color="blue-7" icon="fa-duotone fa-edit" label="ویرایش آیتم"></q-btn>
     </div>
   </div>
 

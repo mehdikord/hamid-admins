@@ -63,21 +63,21 @@ export default {
 
 
     </template>
-    <strong class="text-grey-9">افزودن از طریق فایل اکسل : </strong>
+    <strong class="text-grey-4">افزودن از طریق فایل اکسل : </strong>
     <div class="q-mt-lg">
       <q-file outlined bottom-slots v-model="items.excel" label="انتخاب فایل " counter>
         <template v-slot:prepend>
-          <q-icon name="cloud_upload" @click.stop.prevent color="blue-8"/>
+          <q-icon size="27px" name="fa-duotone fa-regular fa-upload" @click.stop.prevent color="teal-14"/>
         </template>
         <template v-slot:append>
-          <q-icon name="close" @click.stop.prevent="items.excel = null" class="cursor-pointer" />
+          <q-icon name="fa-duotone fa-regular fa-times" @click.stop.prevent="items.excel = null" color="red" class="cursor-pointer" />
         </template>
       </q-file>
     </div>
   </div>
   <q-separator/>
   <div class="q-mt-md">
-    <strong class="text-grey-9">افزودن با وارد کردن شماره : </strong>
+    <strong class="text-grey-4">افزودن با وارد کردن شماره : </strong>
     <q-banner class="q-mt-md bg-blue-grey-8 rounded-borders">
       <strong class="text-white">راهنما : </strong>
       <p class="q-mt-sm text-white">

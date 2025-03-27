@@ -4,7 +4,7 @@ import {Stores_Auth} from "@/stores/auth/auth.js";
 export default {
   name:'Authentication',
   mounted() {
-    document.body.classList.add("auth-background");
+    // document.body.classList.add("auth-background");
   },
   unmounted() {
     document.body.classList.remove("auth-background");
@@ -20,6 +20,9 @@ export default {
   },
   methods:{
     Login(){
+      if (!this.login.email || !this.login.password){
+        return this.Methods_Notify_Message_Error("اطلاعات مورد نیاز را کامل کنید !")
+      }
       this.loading = true;
       axios.post('/admins/auth/login',this.login).then(res=>{
         Stores_Auth().AuthLogin(res.data.result.user,res.data.result.token)
@@ -44,68 +47,71 @@ export default {
 </script>
 
 <template>
-  <div class="row justify-center" style="margin-top: 160px">
-    <div class="col-md-6 col-sm-12 col-xs-12">
-      <q-card class="auth-box">
-        <q-card-section>
-          <div class="text-center index-title font-lalezar text-white q-mt-sm">
-            ... CRM ...
-          </div>
-          <div class="text-center subtitle text-white q-mt-md">
-            ورود به مدیریت
-          </div>
-        </q-card-section>
-        <q-card-section>
-          <div class="row justify-center q-mt-sm q-mb-lg">
-            <div class="col-md-6 col-sm-12 col-xs-12 text-white">
-              <div dir="ltr">
-                <q-input v-model="login.email" class="bg-input font-16" rounded outlined color="blue-grey-3" input-style="color:#ffffff">
-                  <template v-slot:append>
-                      <q-icon name="fa-duotone fa-solid fa-user-tie" color="white"></q-icon>
-                  </template>
-                </q-input>
-              </div>
-              <div class="q-mt-lg" dir="ltr">
-                <q-input v-model="login.password" type="password" class="bg-input font-16" rounded outlined color="blue-grey-3" input-style="color:#ffffff">
-                  <template v-slot:append>
-                      <q-icon name="fa-duotone fa-solid fa-lock" color="white"></q-icon>
-                  </template>
-                </q-input>
-              </div>
-              <div class="q-mt-xl text-right">
-                <q-btn :loading="loading" @click="Login" glossy label="ورود به مدیریت" color="blue-8" rounded class="font-16" icon="fas fa-check"></q-btn>
+  <div class="row">
+    <div class="col-md-6 col-xs-12 q-pa-xl moblie">
+      <div class="row justify-center">
+        <div class="col-md-9 col-xs-12">
+          <div class="login-box q-mt-xl">
+            <div class="q-ml-md q-mt-lg">
+              <strong class="font-lalezar font-weight-100 font-32">ورود به حساب کاربری</strong>
+              <div class="q-mt-md text-grey-3">
+                برای ورود آدرس ایمیل و گذروازه خود را وارد کنید
               </div>
             </div>
+            <div class="q-mt-xl q-px-md q-mb-xl moblie">
+              <div>
+                <q-input outlined type="email" rounded label="آدرس ایمیل" v-model="login.email">
+                  <template v-slot:prepend>
+                    <q-icon name="fa-duotone fa-envelope q-ml-sm" color="teal-13"></q-icon>
+                  </template>
+                </q-input>
+              </div>
+              <div style="margin-top: 40px">
+                <q-input outlined rounded label="گذرواژه" v-model="login.password" type="password">
+                  <template v-slot:prepend>
+                    <q-icon name="fa-duotone fa-key q-ml-sm" color="teal-13"></q-icon>
+                  </template>
+                </q-input>
+              </div>
+              <div style="margin-top: 60px;" class="text-center">
+                <q-btn @click="Login" :loading="loading" color="teal-7" glossy icon="fa-duotone fa-send fa-light" label="ورود به حساب" rounded class="font-17 q-pt-sm q-pb-sm q-px-xl"></q-btn>
+              </div>
+              <div style="margin-top: 60px;" class="text-center">
+                <strong class="text-teal-14">فراموشی گذرواژه !</strong>
+              </div>
+
+            </div>
+
           </div>
-        </q-card-section>
-      </q-card>
+        </div>
+      </div>
     </div>
-
+    <div class="col-md-6 q-pa-xl xs-hide">
+      <div class="row justify-center">
+        <div class="col-md-12">
+          <img src="assets/images/backgrounds/auth.svg" class="auth" alt="">
+        </div>
+      </div>
+    </div>
   </div>
-
-
-
-
 </template>
 
 <style scoped>
-.auth-box{
-  background-color: rgba(0, 0, 0, 0.49);
+.login-box{
+  padding: 20px 15px;
+  border-radius: 10px;
+  background-color: rgba(59, 56, 129, 0.35);
+  backdrop-filter: blur(10px);
 }
-.index-title{
-  font-size: 38px;
-}
-.subtitle{
-  font-size: 22px;
-}
-.bg-input{
-  background-color: rgba(255, 255, 255, 0.28);
-  border-radius: 30px;
+.auth{
+  width: 95%;
 }
 @media only screen and (max-width: 768px) {
-  .index-title{
-    font-size: 28px;
+  .moblie{
+    padding: 0px 0px !important;
+    margin-left: 0px !important;
+    margin-right: 0px !important;
   }
-
 }
+
 </style>

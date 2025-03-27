@@ -8,7 +8,7 @@
   {
     "fa" : "کابران",
     "en" : "Users",
-    "icon" : "fa-duotone fa-users",
+    "icon" : "fa-duotone fa-users fa-light text-teal-14",
     "route_path" : "/",
     "route_name" : "",
     "level"      : 0,
@@ -35,7 +35,7 @@
   {
     "fa" : "پروژه ها",
     "en" : "Projects",
-    "icon" : "fa-duotone fa-star",
+    "icon" : "fa-duotone fa-star fa-light text-teal-14",
     "route_path" : "/",
     "route_name" : "",
     "level"      : 0,

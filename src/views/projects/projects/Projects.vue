@@ -241,12 +241,12 @@ export default {
           v-model="dialog_create"
           position="top"
       >
-        <q-card style="width: 1024px; max-width: 85vw;">
+        <q-card style="width: 1024px; max-width: 85vw; margin-top: 50px">
 
-          <q-card-section>
-            <strong class="text-indigo-8 font-15">افزودن آیتم جدید</strong>
-            <q-btn size="sm" icon="fa-duotone fa-times" glossy round dense v-close-popup color="red" class="q-mr-sm float-right"/>
-          </q-card-section>
+          <q-card-section class="bg-indigo-7">
+            <strong class="font-16">افزودن آیتم جدید</strong>
+            <q-btn size="sm" color="white" text-color="dark" icon="fa-duotone fa-times" round dense v-close-popup class="q-mr-sm float-right"/>
+            </q-card-section>
           <q-card-section>
             <projects_create @Done="(item => { Item_Create(item) })"></projects_create>
           </q-card-section>
@@ -256,117 +256,140 @@ export default {
       <q-separator class="q-mt-xl"/>
     </q-card-section>
     <q-card-section>
-      <q-banner class="bg-blue-grey-8 rounded-borders text-white">
-        برای مدیرت کامل پروژه و مشتریان و گزارشات ثبت شده ، به صفحه مدیریت پروژه بروید (               <q-btn  glossy class="q-ma-xs" color="teal-8" icon="fa-duotone fa-cog" size="9px" round  />
-        )
-        و برای افزودن سریع مشتری به پروژه از کلید ( <q-btn  glossy class="q-ma-xs" color="purple-8" icon="fa-duotone fa-users" size="9px" round  /> ) استفاده کنید
-      </q-banner>
+
     </q-card-section>
     <q-card-section>
       <q-table
           flat
+          grid
           bordered
           :loading="items_loading"
           :rows="items"
-          title="لیست آیتم ها"
-          title-class="font-15 font-weight-500"
           :columns="columns"
           separator="cell"
-          selection="multiple"
           row-key="id"
           :selected="selected"
           @update:selected="updateSelected"
           v-model:pagination="pagination"
           @request="Items_OnRequest"
       >
-        <template v-slot:body-cell-name="props">
-          <q-td :props="props">
-              <div><strong>{{ props.row.name }}</strong></div>
-          </q-td>
+        <template v-slot:item="props">
+          <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-xs-12 q-px-md">
+            <q-card flat bordered >
+              <q-card-section class="bg-grey-10 row">
+                <div class="col-6">
+                  <router-link :to="{name : 'projects_single',params : {id : props.row.id} }" >
+                    <strong class="font-17 text-white">{{props.row.name}}</strong>
+                  </router-link>
+                </div>
+                <div class="col-6 text-right">
+                  <q-btn :to="{name : 'projects_single',params : {id : props.row.id} }" title="تظیمات پروژه" size="10px" color="teal" round icon="fa-duotone fa-light fa-screwdriver-wrench"></q-btn>
+                  <q-btn title="کارشناسان" size="10px" color="deep-orange-8" round icon="fa-duotone fa-light fa-users" class="q-ml-sm"></q-btn>
+                  <q-btn @click="dialog_edit[props.row.id] = true" title="ویرایش پروژه" size="10px" color="blue-7" round icon="fa-duotone fa-light fa-pen" class="q-ml-sm"></q-btn>
+                </div>
+
+              </q-card-section>
+              <q-card-section class="row q-mt-sm">
+                <div class="col-12 row q-gutter-lg">
+                  <div>
+                    <strong class="font-12">دسته بندی : </strong>
+                    <strong class="font-14 q-ml-sm" :style="'color:'+props.row.category.color">{{props.row.category.name}}</strong>
+                  </div>
+                  <div>
+                    <strong class="font-12">وضعیت پروژه : </strong>
+                    <strong class="q-ml-sm font-14" :style="'color:'+props.row.status.color">{{props.row.status.name}}</strong>
+                  </div>
+                  <div>
+                    <strong class="font-12">فعال : </strong>
+                    <q-icon v-if="props.row.is_active" name="fa-duotone fa-check fa-regular" color="green-14" size="20px"></q-icon>
+                    <q-icon v-else name="fa-duotone fa-times fa-regular" color="red" size="20px"></q-icon>
+                  </div>
+
+                </div>
+                <div class="col-12 q-mt-lg q-pt-sm">
+                  <div class="row q-gutter-md">
+                    <q-chip  clickable color="indigo-8" text-color="white" icon="fa-duotone fa-users fa-light q-mr-md">
+                      <strong>{{ props.row.total_customers }}</strong>
+                      <q-tooltip class="bg-grey-4 glossy">
+                        <strong class="text-dark font-13">کل مشتریان</strong>
+                      </q-tooltip>
+                    </q-chip>
+                    <q-chip clickable color="green-8" text-color="white" icon="fa-duotone fa-user-check fa-light q-mr-md">
+                      <strong>{{ props.row.total_customers - props.row.pending_customers }}</strong>
+                      <q-tooltip class="bg-grey-4 glossy">
+                        <strong class="text-dark font-13">مشتریان در انتظار</strong>
+                      </q-tooltip>
+                    </q-chip>
+                    <q-chip  clickable color="red-8" text-color="white" icon="fa-duotone fa-user-times fa-light q-mr-md">
+                      <strong>{{ props.row.pending_customers }}</strong>
+                      <q-tooltip class="bg-grey-4 glossy">
+                        <strong class="text-dark font-13">مشتریان تخصیص داده شده</strong>
+                      </q-tooltip>
+                    </q-chip>
+                    <q-chip clickable color="purple-8" text-color="white" icon="fa-duotone fa-user-tie fa-light q-mr-md">
+                       <strong>{{ props.row.users_count }}</strong>
+                      <q-tooltip class="bg-grey-4 glossy">
+                        <strong class="text-dark font-13">کارشناسان پروژه</strong>
+                      </q-tooltip>
+                    </q-chip>
+                  </div>
+                </div>
+                <div class="col-12 q-mt-lg row q-gutter-x-md">
+                  <q-chip outline size="13px" color="green-4">شروع :
+                    <span v-if="props.row.start_at" dir="ltr" class="q-ml-xs">{{this.Methods_Date_Gregorian_To_Jalali(props.row.start_at)}}</span>
+                    <span v-else  dir="ltr" class="q-ml-xs">----</span>
+                  </q-chip>
+                  <q-chip outline size="13px" color="red-4">پایان :
+                    <span v-if="props.row.end_at" dir="ltr" class="q-ml-xs">{{this.Methods_Date_Gregorian_To_Jalali(props.row.end_at)}}</span>
+                    <span v-else  dir="ltr" class="q-ml-xs">----</span>
+                  </q-chip>
+                  <q-chip outline size="13px" color="grey-5"> ویرایش :
+                    <span v-if="props.row.updated_at" dir="ltr" class="q-ml-xs">{{this.Methods_Date_Gregorian_To_Jalali(props.row.updated_at)}}</span>
+                    <span v-else  dir="ltr" class="q-ml-xs">----</span>
+                  </q-chip>
+                </div>
+              </q-card-section>
+              <q-card-section class="q-pt-md q-mb-sm">
+                <div class="row q-gutter-x-lg">
+                  <div>
+                    <q-icon name="fa-duotone fa-file-invoice-dollar" size="26px" color="teal-14"></q-icon>
+                    <strong class="q-ml-xs font-14 text-grey-5">فاکتورها : </strong>
+                    <strong class="font-16">21</strong>
+                  </div>
+                  <div>
+                    <q-icon name="fa-duotone fa-file-lines fa-" size="26px" color="blue-12"></q-icon>
+                    <strong class="q-ml-xs font-14 text-grey-5">گزارشات : </strong>
+                    <strong class="font-16">21</strong>
+                  </div>
+                  <div>
+                    <q-icon name="fa-duotone fa-coins fa-" size="26px" color="yellow-7"></q-icon>
+                    <strong class="q-ml-xs font-14 text-grey-5">مبالغ : </strong>
+                    <strong class="font-15">28,000,000</strong>
+                  </div>
+                </div>
+              </q-card-section>
+            </q-card>
+          </div>
+
+          <q-dialog
+              v-model="dialog_edit[props.row.id]"
+              position="top"
+          >
+            <q-card style="width: 1024px; max-width: 85vw; margin-top: 50px">
+
+              <q-card-section class="bg-blue-7">
+                <strong class="font-16">ویرایش اطلاعات پروژه : {{props.row.name}}</strong>
+                <q-btn size="sm" color="white" text-color="dark" icon="fa-duotone fa-times" round dense v-close-popup class="q-mr-sm float-right"/>
+              </q-card-section>
+              <q-card-section>
+                <projects_edit :id="props.row.id" @Done="(item => { Item_Edit(item) })"></projects_edit>
+              </q-card-section>
+            </q-card>
+          </q-dialog>
+
         </template>
-        <template v-slot:body-cell-code="props">
-          <q-td :props="props">
-            <strong class="text-indigo-8">{{ props.row.code }}</strong>
-          </q-td>
-        </template>
-        <template v-slot:body-cell-category="props">
-          <q-td :props="props">
-            <template v-if="props.row.category">
-              <q-chip class="font-12" :style="'background-color:'+props.row.category.color"  size="sm" :label="props.row.category.name"></q-chip>
-            </template>
-          </q-td>
-        </template>
-        <template v-slot:body-cell-status="props">
-          <q-td :props="props">
-            <template v-if="props.row.status">
-              <q-chip class="font-12" :style="'background-color:'+props.row.status.color"  size="sm" :label="props.row.status.name"></q-chip>
-            </template>
-          </q-td>
-        </template>
-        <template v-slot:body-cell-customers="props">
-          <q-td :props="props" >
-            <div class="text-center">
-              <q-chip :label="props.row.pending_customers" color="green-6" size="sm" text-color="white" class="font-12 font-weight-700" title="تخصیص به کارشناس"></q-chip>
-              <q-chip :label="props.row.total_customers" color="blue-grey-8" size="sm" text-color="white" class="font-12 font-weight-700" title="کل مشتریان"></q-chip>
-              <q-chip :label="props.row.total_customers - props.row.pending_customers" color="red-6" size="sm" text-color="white" class="font-12 font-weight-700" title="بدون کارشناس"></q-chip>
-            </div>
 
 
-          </q-td>
-        </template>
-
-
-        <template v-slot:body-cell-tools="props">
-          <q-td :props="props">
-            <div class="text-center">
-              <q-btn @click="dialog_edit[props.row.id] = true" glossy title="ویرایش آیتم" class="q-ma-xs" color="blue-8" icon="fa-duotone fa-edit" size="9px" round  />
-              <q-btn :to="{name : 'projects_single',params : {id : props.row.id}}"  glossy title="مدیریت پروژه" class="q-ma-xs" color="teal-8" icon="fa-duotone fa-cog" size="9px" round  />
-              <q-btn  @click="dialog_customers[props.row.id] = true" glossy title="افزودن مشتری" class="q-ma-xs" color="purple-8" icon="fa-duotone fa-users" size="9px" round  />
-              <global_actions_delete_item @Set_Ok="Item_Delete(props.row.id)" :loading="delete_loading"></global_actions_delete_item>
-            </div>
-            <q-dialog
-                v-model="dialog_edit[props.row.id]"
-                position="top"
-            >
-              <q-card style="width: 1024px; max-width: 85vw;">
-
-                <q-card-section>
-                  <strong class="text-blue-8 font-15">ویرایش اطلاعات : <strong class="text-red-8">{{props.row.name}}</strong></strong>
-                  <q-btn size="sm" icon="fa-duotone fa-times" glossy round dense v-close-popup color="red" class="q-mr-sm float-right"/>
-                </q-card-section>
-                <q-card-section>
-                  <projects_edit :id="props.row.id" @Done="(item => { Item_Edit(item) })"></projects_edit>
-                </q-card-section>
-              </q-card>
-            </q-dialog>
-            <q-dialog
-                v-model="dialog_customers[props.row.id]"
-                position="top"
-            >
-              <q-card style="width: 1024px; max-width: 85vw;">
-
-                <q-card-section>
-                  <strong class="text-blue-8 font-15">افزودن مشتری به : <strong class="text-red-8">{{props.row.name}}</strong></strong>
-                  <q-btn size="sm" icon="fa-duotone fa-times" glossy round dense v-close-popup color="red" class="q-mr-sm float-right"/>
-                </q-card-section>
-                <q-card-section>
-                  <add_customers :id="props.row.id" @Done="(item => { Item_Edit(item) })"></add_customers>
-                </q-card-section>
-              </q-card>
-            </q-dialog>
-          </q-td>
-        </template>
-
-        <template v-slot:body-cell-created_at="props">
-          <q-td :props="props" >
-            <global_filter_date :date="props.row.created_at" />
-          </q-td>
-        </template>
-        <template v-slot:body-cell-updated_at="props">
-          <q-td :props="props" >
-            <global_filter_date :date="props.row.updated_at" />
-          </q-td>
-        </template>
 
 
       </q-table>
@@ -376,5 +399,10 @@ export default {
 </template>
 
 <style scoped>
+.chip{
+  padding: 2px 7px;
+  border-radius: 5px;
+  font-weight: 600;
 
+}
 </style>

@@ -150,7 +150,7 @@ export default {
         this.delete_loading=false;
       }).catch(error => {
         if (error.response.status === 409) {
-          this.Methods_Notify_Generator( error.response.data.error,'red-8','fas fa-times')
+          this.Methods_Notify_Generator( error.response.data.error,'red-8','fa-duotone fa-times')
         }else {
           this.Methods_Notify_Error_Server();
         }
@@ -194,11 +194,11 @@ export default {
           v-model="dialog_create"
           position="top"
       >
-        <q-card style="width: 1024px; max-width: 85vw;">
+        <q-card style="width: 1024px; max-width: 85vw; margin-top: 50px">
 
-          <q-card-section>
-            <strong class="text-indigo-8 font-15">افزودن آیتم جدید</strong>
-            <q-btn size="sm" icon="fas fa-times" glossy round dense v-close-popup color="red" class="q-mr-sm float-right"/>
+          <q-card-section class="bg-indigo-7">
+            <strong class="font-16">افزودن آیتم جدید</strong>
+            <q-btn size="sm" color="white" text-color="dark" icon="fa-duotone fa-times" round dense v-close-popup class="q-mr-sm float-right"/>
           </q-card-section>
           <q-card-section>
             <project_statuses_create @Done="(item => { Item_Create(item) })"></project_statuses_create>
@@ -215,8 +215,8 @@ export default {
           :loading="items_loading"
           :rows="items"
           title="لیست آیتم ها"
-          title-class="text-teal-8 font-18 font-weight-500"
-          table-header-class="text-red-8"
+          title-class="font-15 font-weight-600 q-py-sm"
+          table-header-class="bg-blue-grey-10"
           :columns="columns"
           separator="cell"
           selection="multiple"
@@ -234,25 +234,24 @@ export default {
         <template v-slot:body-cell-color="props">
           <q-td :props="props">
             <div class="color-box" :style="'background-color:'+props.row.color">
-
             </div>
           </q-td>
         </template>
         <template v-slot:body-cell-tools="props">
           <q-td :props="props">
             <div class="text-center">
-              <q-btn @click="dialog_edit[props.row.id] = true" glossy title="ویرایش آیتم" class="q-ma-xs" color="blue-8" icon="fas fa-edit" size="9px" round  />
+              <q-btn @click="dialog_edit[props.row.id] = true"  title="ویرایش آیتم" class="q-ma-xs" color="blue-8" icon="fa-duotone fa-light fa-edit" size="9px" round  />
               <global_actions_delete_item @Set_Ok="Item_Delete(props.row.id)" :loading="delete_loading"></global_actions_delete_item>
             </div>
             <q-dialog
                 v-model="dialog_edit[props.row.id]"
                 position="top"
             >
-              <q-card style="width: 1024px; max-width: 85vw;">
+              <q-card style="width: 1024px; max-width: 85vw; margin-top: 50px">
 
-                <q-card-section>
-                  <strong class="text-blue-8 font-15">ویرایش اطلاعات : <strong class="text-red-8">{{props.row.name}}</strong></strong>
-                  <q-btn size="sm" icon="fas fa-times" glossy round dense v-close-popup color="red" class="q-mr-sm float-right"/>
+                <q-card-section class="bg-blue-7">
+                  <strong class="font-15">ویرایش اطلاعات : <strong>{{props.row.name}}</strong></strong>
+                  <q-btn size="sm" text-color="dark" color="white" icon="fa-duotone fa-times" round dense v-close-popup  class="q-mr-sm float-right"/>
                 </q-card-section>
                 <q-card-section>
                   <project_statuses_edit :id="props.row.id" @Done="(item => { Item_Edit(item) })"></project_statuses_edit>

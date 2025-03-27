@@ -211,8 +211,8 @@ export default {
     <div class="col-xs-12 col-sm-12 col-md-6 q-pa-xs">
       <q-input :error="this.Methods_Validation_Check(errors,'start_at')" outlined v-model="jalali_start_date" mask="date" label="تاریخ شروع همکاری">
         <template v-slot:append>
-          <q-icon color="teal-7" name="fas fa-calendar" class="cursor-pointer" title="باز کردن تقویم">
-            <q-popup-proxy cover transition-show="scale" transition-hide="scale">
+          <q-icon color="teal-14" name="fa-duotone fa-regular fa-calendar" class="cursor-pointer" size="28px" title="باز کردن تقویم">
+            <q-popup-proxy cover  transition-show="scale" transition-hide="scale">
               <q-date color="teal-7" dark v-model="jalali_start_date" calendar="persian" mask="YYYY/MM/DD">
               </q-date>
             </q-popup-proxy>
@@ -226,7 +226,7 @@ export default {
     <div class="col-xs-12 col-sm-12 col-md-6 q-pa-xs">
       <q-input :error="this.Methods_Validation_Check(errors,'end_at')" outlined v-model="jalali_end_date" mask="date" label="تاریخ پایان همکاری">
         <template v-slot:append>
-          <q-icon color="teal-7" name="fas fa-calendar" class="cursor-pointer" title="باز کردن تقویم">
+          <q-icon color="teal-14" name="fa-duotone fa-regular fa-calendar" class="cursor-pointer" size="28px" title="باز کردن تقویم">
             <q-popup-proxy cover transition-show="scale" transition-hide="scale">
               <q-date color="teal-7" dark v-model="jalali_end_date" calendar="persian" mask="YYYY/MM/DD">
               </q-date>
@@ -247,8 +247,8 @@ export default {
     </div>
 
     <div class="col-12 q-mt-sm q-pa-xs text-right">
-      <q-btn color="grey-8" glossy icon="fas fa-times" label="بستن" class="q-mr-sm" v-close-popup></q-btn>
-      <q-btn @click="Edit_Item" :loading="edit_loading" color="indigo-7" glossy icon="fas fa-edit" label="ویرایش آیتم"></q-btn>
+      <q-btn rounded color="blue-grey-8"  icon="fa-duotone fa-times" label="بستن" class="q-mr-sm" v-close-popup></q-btn>
+      <q-btn rounded @click="Edit_Item" :loading="edit_loading" color="blue-7" icon="fa-duotone fa-edit" label="ویرایش آیتم"></q-btn>
     </div>
   </div>
 

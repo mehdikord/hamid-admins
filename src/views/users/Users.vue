@@ -242,7 +242,8 @@ export default {
           :loading="items_loading"
           :rows="items"
           title="لیست آیتم ها"
-          title-class="font-15 font-weight-500"
+          title-class="font-15 font-weight-600 q-py-sm"
+          table-header-class="bg-blue-grey-10"
           :columns="columns"
           separator="cell"
           selection="multiple"
@@ -256,8 +257,8 @@ export default {
           <q-td :props="props">
 
             <div class="row">
-              <img src="assets/images/icons/user-default.png" width="35"  alt="user_profile"/>
-              <div class="q-ml-sm q-mt-sm"><strong>{{ props.row.name }}</strong></div>
+              <q-icon name="fa-duotone fa-user " size="28px" color="deep-orange-5"></q-icon>
+              <div class="q-ml-md q-mt-sm"><strong>{{ props.row.name }}</strong></div>
             </div>
           </q-td>
         </template>
